@@ -1,0 +1,78 @@
+<doctype! html>
+<head>
+	<title>漢堡選單</title> 
+	<style>
+		body {
+			margin: 0;
+		}
+		header {
+			padding: 5px;
+			width: 100%;
+			color: #fff;
+			background-color: #ccc;
+		}
+		.btn-hamburger-menu {
+			height: 40px;
+			width: 40px;
+			padding-right: 8px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.sidebar-nav {
+			background-color: #fff;
+			box-shadow: 1px 0px 1px #aaa;
+			min-height: 100%;
+			position: absolute;
+			left: -193px;
+			padding-top: 10px;
+			z-index: 2;
+		}
+
+		.sidebar-nav-filter {
+			position: fixed;
+			top: 0;
+			left: 0;
+			min-width: 100%;
+			min-height: 100%;
+			z-index: 1;
+			display: none;
+		}
+
+		.menu-list {
+			padding: 0;
+			height: 100%;
+			width: 193px;
+		}
+		.menu-list li {
+			line-height: 48px;
+			font-size: 120%;
+		}
+		.menu-list a {
+			padding-left: 16px;
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+		<header>
+			<a href="#" class="btn-hamburger-menu">MENU</a>
+		</header>
+	<div class="page">
+		<nav class="sidebar-nav">
+			<ul class="menu-list">
+				<li>list1</li>
+				<li>LIST2</li>
+				<li>list3</li>
+			</ul>
+			<div class="sidebar-nav-filter"></div>
+		</nav>
+	</div>
+	<script src="jquery-1.11.1.js" type="text/javascript"></script>
+	<script src="script.js"></script>     
+
+</body>
+
+</html>

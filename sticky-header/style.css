@@ -1,0 +1,48 @@
+@charset "UTF-8";
+/* CSS Document */
+body, head{
+	margin:0;
+	padding:0;
+}
+
+.page-header{
+	top: 10em;
+	background: #000;
+	position: absolute;
+	width: 100%;
+	min-width: 960px;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.25);
+	box-shadow: 0 1px 1px rgba(0,0,0,.25);
+	text-align: center;
+}
+.page-header a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.page-header.sticky{
+	position: fixed;
+	top: 0;
+}
+
+.page-header >.inner{
+	margin: auto;
+	width: 960px;
+}
+
+.logo{
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	font-size: 3em;
+}
+
+nav li{
+	display: inline;
+	margin-right: 3em;
+}
+nav ul{
+	list-style:none;
+	}
+	
+.content{height: 1000px;}
