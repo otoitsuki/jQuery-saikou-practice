@@ -15,8 +15,9 @@
 ### 準備變數
 
 * css
+	* tab：#work
 	* tab bar：ul.tabs-nav
-		* tab ： ul.tabs-nav>li>a
+		* tab ：ul.tabs-nav>li>a
 		* 被點選的 tab ：ul.tabs-nav>li>a.active
 	* 對應內容：.tabs-panel
 		* 當前顯示的區塊：.tabs-panel.active
