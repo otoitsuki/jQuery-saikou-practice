@@ -1,21 +1,19 @@
 
 <http://www.shiftbrain.co.jp/book/jquery/sample/chapter06/02/>
 
-2015.10.16 迴圈待補完
-
 本次分成兩部份
 
 1. 了解 Masonry
 2. 撈 json 檔案的圖片資料並放進 Mansonry
 
 
-# 了解 Masonry
+# 1. 了解 Masonry
 
 ## 目的
 
 製作一個圖片瀑布流的頁面。
-練習用（html only）：http://codepen.io/anon/pen/EVwJaL  
-純靜態完成版：http://codepen.io/anon/pen/MaERYv
+練習用（html only）：<http://codepen.io/anon/pen/EVwJaL>  
+純靜態完成版：<http://codepen.io/anon/pen/MaERYv>
 
 ## 了解 Masonry 外掛
 
@@ -83,12 +81,15 @@ $(document).ready( function() {
 
 ```
 
-# 撈 json 檔案的圖片資料並放進 Mansonry
+# 2. 撈 json 檔案的圖片資料並放進 Mansonry
 
 ## 目的
 
-製作一個圖片瀑布流的頁面。
+製作一個圖片瀑布流的頁面。  
 且圖片位置是從 json 檔案中取得，可以動態變更頁面內容。
+
+練習用（html)：<http://codepen.io/anon/pen/eprYjo>  
+完成版：<http://codepen.io/anon/pen/gazOjx>
 
 ## 什麼是Json 
 
@@ -113,10 +114,10 @@ ex：
 
 ## 實際撰寫
 
-1. 用`$.each`跑迴圈，並且找個地方塞（做個物件`element`放進去）迴圈跑完後的資料
+1. 用`$.each`跑迴圈，並且找個地方塞（做個物件叫`elements`放進去）迴圈跑完後的資料
   * 用`$.getjson()`方法抓出json資料
-  * 轉成html：先做一個html的模板，讓迴圈套用
-2. 把迴圈跑完後產生的資料（`element`）用`append`塞進`<ul id="masonry">`裡面
+  * 轉成html：先做一個html的模板（做個物件叫`itemHTML`放進去），讓迴圈套用
+2. 把迴圈跑完後產生的資料（`elements`）用`append`塞進`<ul id="masonry">`裡面
 
 ## 語法講解
 
@@ -147,22 +148,47 @@ $.getJSON('[json路徑]', function([JSON抓回來的資料轉成的物件名]) {
 ```
 $(document).ready( function() {
 
-  // init Masonry
+  // init Masonry //
+  // 先把 Masonry 以 $grid 代稱，並且設定 #mansory 為 Masonry 的區塊
   var $grid = $('#masonry').masonry({
-    columnWidth: 230,
-    gutter: 10
+    
+            columnWidth: 230,
+            gutter: 10,
+            itemSelector: '.gallery-item'
   });
 
-  $.getJSON('/status', function(result) {
-    $.each(result, function(index,image){
-      // 待補完
+  // 先建好等下迴圈做好後要塞的地方（是個陣列）
+  var elements = [];
+
+  // 先把json資料抓回來，抓回來後放在data裡面
+  $.getJSON('https://sheetsu.com/apis/020147bf', function(data) {
+    // 開始跑迴圈，定義剛抓回來的資料（data），還有每個項目的索引名稱（i）以及迴圈內的稱呼方式（item）
+    $.each(data.result, function(i,item){
+      // 做一個html的模板，並且套用json撈回來的資料
+      console.log(item);
+      var itemHTML = 
+            '<li class="gallery-item ">' + 
+              '<a href="'+ item.original +'">' + 
+                '<img src="'+ item.thumb +'" alt="'+ item.title +'">' + 
+              '</a>' + 
+            '</li>';
+      // 迴圈跑完一次了！此時把剛做好的html加工處理：
+      // 1. 把剛才做好的東西 html 轉成 jQuery 物件，這樣才能用jquery語法處理它 → `$(itemHTML)`
+      // 2. 用`.get()`方法抓出 jQuery 物件裡的東西並轉成 DOM → `$(itemHTML).get(0)`
+      // 3. 用`.push()`塞到`elements`
+      elements.push($(itemHTML).get(0));
     });
+
+    // 再來就是把 elements 塞到一開始 Masonry 設定的區塊去。
+    $grid.append(elements);
+
+    // layout Isotope after each image loads
+    $grid.imagesLoaded(function() {
+        $grid.masonry('appended', elements);
+    });
+
   });
   
-  // layout Isotope after each image loads
-  $grid.imagesLoaded().progress( function() {
-    $grid.masonry();
-  });
 
 });
-
+```
